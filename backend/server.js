@@ -23,8 +23,19 @@ const PORT = process.env.PORT || 5000;
 // MongoDB Atlas Connection
 mongoose
   .connect(MONGO_URI)
-  .then(() => {
+  .then(async () => {
     console.log("MongoDB Atlas connected successfully!");
+
+    console.log("Database:", mongoose.connection.name);
+
+    const collections = await mongoose.connection.db
+      .listCollections()
+      .toArray();
+
+    console.log(
+      "Collections:",
+      collections.map((collection) => collection.name)
+    );
   })
   .catch((error) => {
     console.log("MongoDB connection error:", error);
