@@ -23,6 +23,10 @@ import K10 from "../images/k-10.webp";
 import K11 from "../images/k-11.webp";
 import K12 from "../images/k-12.webp";
 
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "https://khaadi-ecommerce-production.up.railway.app";
+
 function Home() {
   const [searchParams] = useSearchParams();
 
@@ -68,7 +72,7 @@ function Home() {
   ];
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/products")
+    fetch(`${API_URL}/api/products`)
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);

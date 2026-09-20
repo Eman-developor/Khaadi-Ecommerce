@@ -1,11 +1,14 @@
-
 import React, { useEffect, useState } from "react";
+
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "https://khaadi-ecommerce-production.up.railway.app";
 
 function AdminOrders() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/orders")
+    fetch(`${API_URL}/api/orders`)
       .then((response) => response.json())
       .then((data) => {
         setOrders(data);
@@ -17,17 +20,14 @@ function AdminOrders() {
 
   return (
     <section className="admin-orders">
-
       <h1>Admin Orders</h1>
 
       {orders.length === 0 ? (
         <h2>No orders found.</h2>
       ) : (
         <div className="orders-container">
-
           {orders.map((order) => (
             <div className="order-card" key={order._id}>
-
               <h2>Order #{order._id}</h2>
 
               <p>
@@ -81,16 +81,12 @@ function AdminOrders() {
                 <strong>Payment:</strong>{" "}
                 {order.paymentMethod}
               </p>
-
             </div>
           ))}
-
         </div>
       )}
-
     </section>
   );
 }
 
 export default AdminOrders;
-

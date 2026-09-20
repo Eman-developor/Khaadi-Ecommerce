@@ -6,6 +6,10 @@ import K2 from "../images/k-2.webp";
 import K3 from "../images/k-3.webp";
 import K4 from "../images/k-4.webp";
 
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "https://khaadi-ecommerce-production.up.railway.app";
+
 function Product() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +22,7 @@ function Product() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/products")
+    fetch(`${API_URL}/api/products`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch products");
@@ -54,13 +58,18 @@ function Product() {
         {products.map((product) => (
           <div className="product-card" key={product._id}>
             <img
-              src={localImages[product.image] || `/images/${product.image}`}
+              src={
+                localImages[product.image] ||
+                `/images/${product.image}`
+              }
               alt={product.name}
             />
 
             <h3>{product.name}</h3>
 
-            <p>PKR {product.price.toLocaleString()}</p>
+            <p>
+              PKR {product.price.toLocaleString()}
+            </p>
 
             <Link to={`/product-details/${product._id}`}>
               <button>VIEW DETAILS</button>

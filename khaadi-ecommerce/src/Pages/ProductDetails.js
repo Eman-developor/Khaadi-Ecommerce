@@ -38,6 +38,10 @@ import K42 from "../images/k-4-2.webp";
 import K43 from "../images/k-4-3.webp";
 import K44 from "../images/k-4-4.webp";
 
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "https://khaadi-ecommerce-production.up.railway.app";
+
 const productImages = {
   "k-1.webp": K1,
   "k-2.webp": K2,
@@ -81,7 +85,7 @@ function ProductDetails() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/products/${id}`)
+    fetch(`${API_URL}/api/products/${id}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Product not found");

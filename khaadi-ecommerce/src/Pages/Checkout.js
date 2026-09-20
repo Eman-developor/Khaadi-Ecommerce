@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 
 import K1 from "../images/k-1.webp";
@@ -12,8 +11,11 @@ import K16 from "../images/k-16.webp";
 import K17 from "../images/k-17.webp";
 import K18 from "../images/k-18.webp";
 
-function Checkout() {
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "https://khaadi-ecommerce-production.up.railway.app";
 
+function Checkout() {
   const productImages = {
     "k-1.webp": K1,
     "k-2.webp": K2,
@@ -28,7 +30,6 @@ function Checkout() {
   };
 
   const getCartProduct = () => {
-
     const savedProduct =
       localStorage.getItem("cartProduct");
 
@@ -37,7 +38,6 @@ function Checkout() {
     }
 
     try {
-
       const parsedProduct =
         JSON.parse(savedProduct);
 
@@ -47,9 +47,7 @@ function Checkout() {
         quantity:
           Number(parsedProduct.quantity) || 1,
       };
-
     } catch (error) {
-
       console.log(
         "Cart data error:",
         error
@@ -78,24 +76,19 @@ function Checkout() {
   });
 
   const handleChange = (event) => {
-
     setFormData({
       ...formData,
       [event.target.name]:
         event.target.value,
     });
-
   };
 
   const placeOrder = async () => {
-
     const currentProduct =
       getCartProduct();
 
     if (!currentProduct) {
-
       alert("Your cart is empty.");
-
       return;
     }
 
@@ -108,11 +101,9 @@ function Checkout() {
       !formData.address ||
       !formData.city
     ) {
-
       alert(
         "Please fill all billing details."
       );
-
       return;
     }
 
@@ -121,7 +112,6 @@ function Checkout() {
       currentProduct.quantity;
 
     const orderData = {
-
       customerName:
         formData.customerName,
 
@@ -138,7 +128,6 @@ function Checkout() {
         formData.city,
 
       product: {
-
         name:
           currentProduct.name,
 
@@ -153,7 +142,6 @@ function Checkout() {
 
         quantity:
           currentProduct.quantity,
-
       },
 
       total: total,
@@ -163,10 +151,9 @@ function Checkout() {
     };
 
     try {
-
       const response =
         await fetch(
-          "http://localhost:5000/api/orders",
+          `${API_URL}/api/orders`,
           {
             method: "POST",
 
@@ -184,7 +171,6 @@ function Checkout() {
         await response.json();
 
       if (response.ok) {
-
         setPlacedOrder(
           orderData
         );
@@ -196,18 +182,13 @@ function Checkout() {
         localStorage.removeItem(
           "cartProduct"
         );
-
       } else {
-
         alert(
           data.message ||
           "Something went wrong."
         );
-
       }
-
     } catch (error) {
-
       console.log(
         "Order error:",
         error
@@ -220,7 +201,6 @@ function Checkout() {
   };
 
   if (orderPlaced && placedOrder) {
-
     const image =
       productImages[
         placedOrder.product.image
@@ -228,9 +208,7 @@ function Checkout() {
 
     return (
       <section className="checkout-section">
-
         <div className="order-success">
-
           <h1>
             ORDER PLACED SUCCESSFULLY!
           </h1>
@@ -240,9 +218,7 @@ function Checkout() {
           </p>
 
           <div className="placed-order-details">
-
             <div className="placed-product">
-
               {image && (
                 <img
                   src={image}
@@ -253,7 +229,6 @@ function Checkout() {
               )}
 
               <div>
-
                 <h2>
                   {placedOrder.product.name}
                 </h2>
@@ -285,9 +260,7 @@ function Checkout() {
                 <p>
                   Payment: Cash on Delivery
                 </p>
-
               </div>
-
             </div>
 
             <hr />
@@ -320,26 +293,20 @@ function Checkout() {
               City:{" "}
               {placedOrder.city}
             </p>
-
           </div>
-
         </div>
-
       </section>
     );
   }
 
   if (!product) {
-
     return (
       <section className="checkout-section">
-
         <h1>
           Checkout
         </h1>
 
         <div className="empty-checkout">
-
           <h2>
             Your cart is empty.
           </h2>
@@ -348,9 +315,7 @@ function Checkout() {
             Please add a product to your
             cart before going to checkout.
           </p>
-
         </div>
-
       </section>
     );
   }
@@ -364,15 +329,12 @@ function Checkout() {
 
   return (
     <section className="checkout-section">
-
       <h1>
         Checkout
       </h1>
 
       <div className="checkout-container">
-
         <div className="checkout-form">
-
           <h2>
             Billing Details
           </h2>
@@ -461,7 +423,6 @@ function Checkout() {
           </h2>
 
           <div className="payment-option">
-
             <input
               type="radio"
               defaultChecked
@@ -470,7 +431,6 @@ function Checkout() {
             <span>
               Cash on Delivery
             </span>
-
           </div>
 
           <button
@@ -481,17 +441,14 @@ function Checkout() {
           >
             PLACE ORDER
           </button>
-
         </div>
 
         <div className="order-summary">
-
           <h2>
             Order Summary
           </h2>
 
           <div className="checkout-product">
-
             {image && (
               <img
                 src={image}
@@ -500,7 +457,6 @@ function Checkout() {
             )}
 
             <div>
-
               <h3>
                 {product.name}
               </h3>
@@ -514,13 +470,10 @@ function Checkout() {
                 Price: PKR{" "}
                 {product.price.toLocaleString()}
               </p>
-
             </div>
-
           </div>
 
           <div className="summary-row">
-
             <span>
               Quantity
             </span>
@@ -528,11 +481,9 @@ function Checkout() {
             <strong>
               {product.quantity}
             </strong>
-
           </div>
 
           <div className="summary-row">
-
             <span>
               Subtotal
             </span>
@@ -541,11 +492,9 @@ function Checkout() {
               PKR{" "}
               {total.toLocaleString()}
             </strong>
-
           </div>
 
           <div className="summary-row">
-
             <span>
               Delivery
             </span>
@@ -553,13 +502,11 @@ function Checkout() {
             <strong>
               Free
             </strong>
-
           </div>
 
           <hr />
 
           <div className="summary-total">
-
             <span>
               Total
             </span>
@@ -568,16 +515,11 @@ function Checkout() {
               PKR{" "}
               {total.toLocaleString()}
             </strong>
-
           </div>
-
         </div>
-
       </div>
-
     </section>
   );
 }
 
 export default Checkout;
-
