@@ -1,0 +1,14 @@
+# React
+khaadi-ecommerce/node_modules/
+khaadi-ecommerce/build/
+khaadi-ecommerce/.env
+
+# Backend
+backend/node_modules/
+backend/.env
+
+# General
+node_modules/
+.env
+.env.*
+!.env.example
