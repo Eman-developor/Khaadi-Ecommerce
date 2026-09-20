@@ -22,7 +22,9 @@ const PORT = process.env.PORT || 5000;
 
 // MongoDB Atlas Connection
 mongoose
-  .connect(MONGO_URI)
+  .connect(MONGO_URI, {
+    dbName: "khaadiDB"
+  })
   .then(async () => {
     console.log("MongoDB Atlas connected successfully!");
 
