@@ -1,4 +1,5 @@
 const dns = require("dns");
+
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 require("dns").setDefaultResultOrder("ipv4first");
 
@@ -15,11 +16,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Environment Variables
+const MONGO_URI = process.env.MONGO_URI;
+const PORT = process.env.PORT || 5000;
+
 // MongoDB Atlas Connection
 mongoose
-  .connect(
-    "mongodb+srv://shariq84d_db_user:Emankhan46@khaadicluster.cob1rov.mongodb.net/khaadiDB?retryWrites=true&w=majority&appName=KhaadiCluster"
-  )
+  .connect(MONGO_URI)
   .then(() => {
     console.log("MongoDB Atlas connected successfully!");
   })
@@ -39,8 +42,6 @@ app.get("/", (req, res) => {
 });
 
 // Server
-const PORT = 5000;
-
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
