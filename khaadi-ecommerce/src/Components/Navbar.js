@@ -33,15 +33,19 @@ function Navbar() {
     setMenuOpen(false);
   };
 
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <>
       <nav className="navbar">
 
-        {/* ORIGINAL KHAADI LOGO */}
+        {/* KHAADI LOGO */}
         <Link
           to="/"
           className="logo"
-          onClick={() => setMenuOpen(false)}
+          onClick={closeMenu}
         >
           <img
             src={KhaadiLogo}
@@ -55,35 +59,35 @@ function Navbar() {
 
           <Link
             to="/"
-            onClick={() => setMenuOpen(false)}
+            onClick={closeMenu}
           >
             HOME
           </Link>
 
           <Link
             to="/"
-            onClick={() => setMenuOpen(false)}
+            onClick={closeMenu}
           >
             NEW IN
           </Link>
 
           <Link
-            to="/product-details/6aa67b9e14cf86218a9014dd"
-            onClick={() => setMenuOpen(false)}
+            to="/product-details/6aaeaf5fefb8adb91924338e"
+            onClick={closeMenu}
           >
             PRODUCT DETAILS
           </Link>
 
           <Link
             to="/cart"
-            onClick={() => setMenuOpen(false)}
+            onClick={closeMenu}
           >
             ADD TO CART
           </Link>
 
           <Link
             to="/checkout"
-            onClick={() => setMenuOpen(false)}
+            onClick={closeMenu}
           >
             CHECK OUT
           </Link>
