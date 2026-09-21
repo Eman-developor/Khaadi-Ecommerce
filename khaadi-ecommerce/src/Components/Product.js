@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import K1 from "../images/k-1.webp";
 import K2 from "../images/k-2.webp";
@@ -14,6 +14,8 @@ function Product() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate();
+
   const localImages = {
     "k-1.webp": K1,
     "k-2.webp": K2,
@@ -22,23 +24,35 @@ function Product() {
   };
 
   useEffect(() => {
-    fetch(`${API_URL}/api/products`)
-      .then((response) => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/products`);
+
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
 
-        return response.json();
-      })
-      .then((data) => {
+        const data = await response.json();
+
         setProducts(data);
-        setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching products:", error);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchProducts();
   }, []);
+
+  const handleViewDetails = (productId) => {
+    if (!productId) {
+      console.error("Product ID is missing");
+      return;
+    }
+
+    navigate(`/product-details/${productId}`);
+  };
 
   if (loading) {
     return (
@@ -52,11 +66,13 @@ function Product() {
   return (
     <section className="products-section">
       <h2>Our Products</h2>
+
       <p>Explore our latest collection.</p>
 
       <div className="products-container">
         {products.map((product) => (
           <div className="product-card" key={product._id}>
+
             <img
               src={
                 localImages[product.image] ||
@@ -68,12 +84,16 @@ function Product() {
             <h3>{product.name}</h3>
 
             <p>
-              PKR {product.price.toLocaleString()}
+              PKR {Number(product.price).toLocaleString()}
             </p>
 
-            <Link to={`/product-details/${product._id}`}>
-              <button>VIEW DETAILS</button>
-            </Link>
+            <button
+              type="button"
+              onClick={() => handleViewDetails(product._id)}
+            >
+              VIEW DETAILS
+            </button>
+
           </div>
         ))}
       </div>
