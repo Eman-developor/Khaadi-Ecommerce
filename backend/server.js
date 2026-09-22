@@ -9,6 +9,7 @@ const cors = require("cors");
 
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
@@ -23,7 +24,7 @@ const PORT = process.env.PORT || 5000;
 // MongoDB Atlas Connection
 mongoose
   .connect(MONGO_URI, {
-    dbName: "khaadiDB"
+    dbName: "khaadiDB",
   })
   .then(async () => {
     console.log("MongoDB Atlas connected successfully!");
@@ -48,6 +49,9 @@ app.use("/api/products", productRoutes);
 
 // Order Routes
 app.use("/api/orders", orderRoutes);
+
+// User Routes
+app.use("/api/users", userRoutes);
 
 // Test route
 app.get("/", (req, res) => {
