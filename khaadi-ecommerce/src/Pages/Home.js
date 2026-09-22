@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
@@ -5,14 +6,6 @@ import K1 from "../images/k-1.webp";
 import K2 from "../images/k-2.webp";
 import K3 from "../images/k-3.webp";
 import K4 from "../images/k-4.webp";
-
-import K13 from "../images/k-13.webp";
-import K14 from "../images/k-14.webp";
-import K15 from "../images/k-15.webp";
-
-import K16 from "../images/k-16.webp";
-import K17 from "../images/k-17.webp";
-import K18 from "../images/k-18.webp";
 
 import K5 from "../images/k-5.webp";
 import K6 from "../images/k-6.webp";
@@ -22,6 +15,14 @@ import K8 from "../images/k-8.webp";
 import K10 from "../images/k-10.webp";
 import K11 from "../images/k-11.webp";
 import K12 from "../images/k-12.webp";
+
+import K13 from "../images/k-13.webp";
+import K14 from "../images/k-14.webp";
+import K15 from "../images/k-15.webp";
+
+import K16 from "../images/k-16.webp";
+import K17 from "../images/k-17.webp";
+import K18 from "../images/k-18.webp";
 
 const API_URL =
   process.env.REACT_APP_API_URL ||
@@ -35,14 +36,26 @@ function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [products, setProducts] = useState([]);
 
+  // All project images
   const productImages = {
     "k-1.webp": K1,
     "k-2.webp": K2,
     "k-3.webp": K3,
     "k-4.webp": K4,
+
+    "k-5.webp": K5,
+    "k-6.webp": K6,
+    "k-7.webp": K7,
+    "k-8.webp": K8,
+
+    "k-10.webp": K10,
+    "k-11.webp": K11,
+    "k-12.webp": K12,
+
     "k-13.webp": K13,
     "k-14.webp": K14,
     "k-15.webp": K15,
+
     "k-16.webp": K16,
     "k-17.webp": K17,
     "k-18.webp": K18,
@@ -170,7 +183,11 @@ function Home() {
   });
 
   const ProductCard = ({ product }) => {
-    const image = productImages[product.image];
+    const imageName = String(product.image || "")
+      .trim()
+      .toLowerCase();
+
+    const image = productImages[imageName];
 
     return (
       <div className="collection-card">
@@ -190,7 +207,7 @@ function Home() {
         <h3>{product.name}</h3>
 
         <p>
-          PKR {product.price.toLocaleString()}
+          PKR {Number(product.price).toLocaleString()}
         </p>
 
         <Link to={`/product-details/${product._id}`}>
@@ -405,3 +422,4 @@ function Home() {
 }
 
 export default Home;
+

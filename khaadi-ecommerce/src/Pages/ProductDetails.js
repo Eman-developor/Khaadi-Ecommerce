@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -7,6 +8,15 @@ import K2 from "../images/k-2.webp";
 import K3 from "../images/k-3.webp";
 import K4 from "../images/k-4.webp";
 
+import K5 from "../images/k-5.webp";
+import K6 from "../images/k-6.webp";
+import K7 from "../images/k-7.webp";
+import K8 from "../images/k-8.webp";
+
+import K10 from "../images/k-10.webp";
+import K11 from "../images/k-11.webp";
+import K12 from "../images/k-12.webp";
+
 import K13 from "../images/k-13.webp";
 import K14 from "../images/k-14.webp";
 import K15 from "../images/k-15.webp";
@@ -15,10 +25,10 @@ import K17 from "../images/k-17.webp";
 import K18 from "../images/k-18.webp";
 
 // K-1 gallery
-import K11 from "../images/k-1-1.webp";
-import K12 from "../images/k-1-2.webp";
-import K13_1 from "../images/k-1-3.webp";
-import K14_1 from "../images/k-1-4.webp";
+import K11Gallery from "../images/k-1-1.webp";
+import K12Gallery from "../images/k-1-2.webp";
+import K13Gallery from "../images/k-1-3.webp";
+import K14Gallery from "../images/k-1-4.webp";
 
 // K-2 gallery
 import K21 from "../images/k-2-1.webp";
@@ -48,6 +58,15 @@ const productImages = {
   "k-3.webp": K3,
   "k-4.webp": K4,
 
+  "k-5.webp": K5,
+  "k-6.webp": K6,
+  "k-7.webp": K7,
+  "k-8.webp": K8,
+
+  "k-10.webp": K10,
+  "k-11.webp": K11,
+  "k-12.webp": K12,
+
   "k-13.webp": K13,
   "k-14.webp": K14,
   "k-15.webp": K15,
@@ -55,21 +74,25 @@ const productImages = {
   "k-17.webp": K17,
   "k-18.webp": K18,
 
-  "k-1-1.webp": K11,
-  "k-1-2.webp": K12,
-  "k-1-3.webp": K13_1,
-  "k-1-4.webp": K14_1,
+  // K-1 gallery
+  "k-1-1.webp": K11Gallery,
+  "k-1-2.webp": K12Gallery,
+  "k-1-3.webp": K13Gallery,
+  "k-1-4.webp": K14Gallery,
 
+  // K-2 gallery
   "k-2-1.webp": K21,
   "k-2-2.webp": K22,
   "k-2-3.webp": K23,
   "k-2-4.webp": K24,
 
+  // K-3 gallery
   "k-3-1.webp": K31,
   "k-3-2.webp": K32,
   "k-3-3.webp": K33,
   "k-3-4.webp": K34,
 
+  // K-4 gallery
   "k-4-1.webp": K41,
   "k-4-2.webp": K42,
   "k-4-3.webp": K43,
@@ -96,10 +119,21 @@ function ProductDetails() {
       .then((data) => {
         setProduct(data);
 
-        const firstImage =
+        const mainImageName = String(data.image || "")
+          .trim()
+          .toLowerCase();
+
+        const firstGalleryImage =
           data.images && data.images.length > 0
-            ? productImages[data.images[0]] || productImages[data.image]
-            : productImages[data.image];
+            ? productImages[
+                String(data.images[0]).trim().toLowerCase()
+              ]
+            : null;
+
+        const firstImage =
+          firstGalleryImage ||
+          productImages[mainImageName] ||
+          null;
 
         setSelectedImage(firstImage);
         setQuantity(1);
@@ -137,50 +171,79 @@ function ProductDetails() {
 
   if (product.images && product.images.length > 0) {
     galleryImages = product.images
-      .map((imageName) => productImages[imageName])
+      .map((imageName) => {
+        const cleanName = String(imageName)
+          .trim()
+          .toLowerCase();
+
+        return productImages[cleanName];
+      })
       .filter(Boolean);
   }
 
   if (galleryImages.length === 0) {
-    const mainProductImage = productImages[product.image];
+    const mainProductImageName = String(
+      product.image || ""
+    )
+      .trim()
+      .toLowerCase();
+
+    const mainProductImage =
+      productImages[mainProductImageName];
 
     if (mainProductImage) {
       galleryImages = [mainProductImage];
     }
   }
 
-  const mainImage = selectedImage || galleryImages[0];
+  const mainImage =
+    selectedImage || galleryImages[0];
 
   return (
     <section className="product-details-page">
+
       <div className="product-details">
 
         <div className="product-gallery">
 
           <div className="product-thumbnails">
+
             {galleryImages.map((image, index) => (
               <button
                 key={index}
                 className={`thumbnail ${
-                  mainImage === image ? "active" : ""
+                  mainImage === image
+                    ? "active"
+                    : ""
                 }`}
-                onClick={() => setSelectedImage(image)}
+                onClick={() =>
+                  setSelectedImage(image)
+                }
               >
                 <img
                   src={image}
-                  alt={`${product.name} ${index + 1}`}
+                  alt={`${product.name} ${
+                    index + 1
+                  }`}
                 />
               </button>
             ))}
+
           </div>
 
           <div className="main-product-image">
-            {mainImage && (
+
+            {mainImage ? (
               <img
                 src={mainImage}
                 alt={product.name}
               />
+            ) : (
+              <div className="product-image-error">
+                Image not found
+              </div>
             )}
+
           </div>
 
         </div>
@@ -194,13 +257,17 @@ function ProductDetails() {
           <h1>{product.name}</h1>
 
           <h2>
-            PKR {Number(product.price).toLocaleString()}
+            PKR{" "}
+            {Number(
+              product.price
+            ).toLocaleString()}
           </h2>
 
           <p className="product-description">
-            Discover our beautiful Khaadi-style collection,
-            designed with quality fabric and elegant details
-            for your everyday look.
+            Discover our beautiful Khaadi-style
+            collection, designed with quality fabric
+            and elegant details for your everyday
+            look.
           </p>
 
           <div className="product-divider"></div>
@@ -218,7 +285,9 @@ function ProductDetails() {
             <button
               onClick={() =>
                 setQuantity(
-                  quantity > 1 ? quantity - 1 : 1
+                  quantity > 1
+                    ? quantity - 1
+                    : 1
                 )
               }
             >
@@ -228,7 +297,9 @@ function ProductDetails() {
             <span>{quantity}</span>
 
             <button
-              onClick={() => setQuantity(quantity + 1)}
+              onClick={() =>
+                setQuantity(quantity + 1)
+              }
             >
               +
             </button>
@@ -264,8 +335,10 @@ function ProductDetails() {
         </div>
 
       </div>
+
     </section>
   );
 }
 
 export default ProductDetails;
+

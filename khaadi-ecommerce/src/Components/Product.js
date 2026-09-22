@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -5,6 +6,13 @@ import K1 from "../images/k-1.webp";
 import K2 from "../images/k-2.webp";
 import K3 from "../images/k-3.webp";
 import K4 from "../images/k-4.webp";
+import K5 from "../images/k-5.webp";
+import K6 from "../images/k-6.webp";
+import K7 from "../images/k-7.webp";
+import K8 from "../images/k-8.webp";
+import K10 from "../images/k-10.webp";
+import K11 from "../images/k-11.webp";
+import K12 from "../images/k-12.webp";
 
 const API_URL =
   process.env.REACT_APP_API_URL ||
@@ -21,6 +29,13 @@ function Product() {
     "k-2.webp": K2,
     "k-3.webp": K3,
     "k-4.webp": K4,
+    "k-5.webp": K5,
+    "k-6.webp": K6,
+    "k-7.webp": K7,
+    "k-8.webp": K8,
+    "k-10.webp": K10,
+    "k-11.webp": K11,
+    "k-12.webp": K12,
   };
 
   useEffect(() => {
@@ -70,32 +85,46 @@ function Product() {
       <p>Explore our latest collection.</p>
 
       <div className="products-container">
-        {products.map((product) => (
-          <div className="product-card" key={product._id}>
+        {products.map((product) => {
+          const imageName = String(product.image || "")
+            .trim()
+            .toLowerCase();
 
-            <img
-              src={
-                localImages[product.image] ||
-                `/images/${product.image}`
-              }
-              alt={product.name}
-            />
+          const productImage = localImages[imageName];
 
-            <h3>{product.name}</h3>
-
-            <p>
-              PKR {Number(product.price).toLocaleString()}
-            </p>
-
-            <button
-              type="button"
-              onClick={() => handleViewDetails(product._id)}
+          return (
+            <div
+              className="product-card"
+              key={product._id}
             >
-              VIEW DETAILS
-            </button>
+              {productImage ? (
+                <img
+                  src={productImage}
+                  alt={product.name}
+                />
+              ) : (
+                <div className="image-not-found">
+                  Image not found
+                </div>
+              )}
 
-          </div>
-        ))}
+              <h3>{product.name}</h3>
+
+              <p>
+                PKR {Number(product.price).toLocaleString()}
+              </p>
+
+              <button
+                type="button"
+                onClick={() =>
+                  handleViewDetails(product._id)
+                }
+              >
+                VIEW DETAILS
+              </button>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

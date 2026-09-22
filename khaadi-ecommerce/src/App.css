@@ -2714,3 +2714,483 @@ body,
   }
 
 }
+ /* =========================================
+   KHAADI INSPIRED ADMIN DASHBOARD
+========================================= */
+
+.admin-dashboard {
+  min-height: 70vh;
+  background: #faf9f7;
+  padding: 65px 5% 90px;
+  color: #222;
+}
+
+/* =========================================
+   ADMIN HEADER
+========================================= */
+
+.admin-header {
+  max-width: 1200px;
+  margin: 0 auto 45px;
+  text-align: center;
+  padding: 25px 20px 35px;
+  border-bottom: 1px solid #ddd6cf;
+}
+
+.admin-header h1 {
+  margin: 0 0 12px;
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: #222;
+}
+
+.admin-header p {
+  margin: 0;
+  color: #777;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+
+/* =========================================
+   PRODUCT MANAGEMENT
+========================================= */
+
+.admin-product-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  background: #ffffff;
+  border: 1px solid #e5e0da;
+  padding: 40px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+}
+
+.admin-product-section h2,
+.admin-product-list h2,
+.admin-orders > h2 {
+  margin: 0 0 30px;
+  color: #8b3a3a;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+}
+
+
+/* =========================================
+   ADMIN MESSAGE
+========================================= */
+
+.admin-message {
+  margin: 0 0 25px;
+  padding: 13px 18px;
+  background: #f7f3ef;
+  border-left: 3px solid #8b3a3a;
+  color: #555;
+  font-size: 14px;
+}
+
+
+/* =========================================
+   PRODUCT FORM
+========================================= */
+
+.product-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px 30px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 9px;
+  color: #444;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid #d8d2cb;
+  background: #fff;
+  color: #333;
+  outline: none;
+  font-size: 14px;
+  font-family: inherit;
+  transition: 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #8b3a3a;
+  box-shadow: 0 0 0 2px rgba(139, 58, 58, 0.07);
+}
+
+.form-group input::placeholder {
+  color: #aaa;
+}
+
+
+/* =========================================
+   FORM BUTTONS
+========================================= */
+
+.form-buttons {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.admin-add-btn,
+.admin-cancel-btn {
+  min-height: 48px;
+  padding: 0 28px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.3px;
+  transition: 0.3s ease;
+}
+
+.admin-add-btn {
+  background: #8b3a3a;
+  color: #ffffff;
+}
+
+.admin-add-btn:hover {
+  background: #702d2d;
+}
+
+.admin-cancel-btn {
+  background: #ffffff;
+  color: #444;
+  border: 1px solid #ccc;
+}
+
+.admin-cancel-btn:hover {
+  border-color: #8b3a3a;
+  color: #8b3a3a;
+}
+
+
+/* =========================================
+   MANAGE PRODUCTS
+========================================= */
+
+.admin-product-list {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 65px;
+}
+
+.admin-product-list > h2 {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.admin-products-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+
+/* =========================================
+   ADMIN PRODUCT CARD
+========================================= */
+
+.admin-product-card {
+  background: #ffffff;
+  border: 1px solid #e5e0da;
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  transition: 0.3s ease;
+}
+
+.admin-product-card:hover {
+  border-color: #c8bdb4;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.admin-product-info {
+  min-width: 0;
+}
+
+.admin-product-info h3 {
+  margin: 0 0 15px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #222;
+}
+
+.admin-product-info p {
+  margin: 7px 0;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-product-info strong {
+  color: #333;
+}
+
+.admin-product-info .product-id {
+  color: #999;
+  font-size: 11px;
+  word-break: break-all;
+}
+
+
+/* =========================================
+   PRODUCT ACTION BUTTONS
+========================================= */
+
+.admin-product-actions {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.admin-edit-btn,
+.admin-delete-btn {
+  min-width: 95px;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: 0.3s ease;
+}
+
+.admin-edit-btn {
+  background: #8b3a3a;
+  color: #fff;
+}
+
+.admin-edit-btn:hover {
+  background: #702d2d;
+}
+
+.admin-delete-btn {
+  background: #fff;
+  color: #8b3a3a;
+  border: 1px solid #8b3a3a;
+}
+
+.admin-delete-btn:hover {
+  background: #8b3a3a;
+  color: #fff;
+}
+
+
+/* =========================================
+   CUSTOMER ORDERS
+========================================= */
+
+.admin-orders {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  background: transparent;
+}
+
+.admin-orders > h2 {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.orders-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+
+/* =========================================
+   ORDER CARD
+========================================= */
+
+.order-card {
+  background: #ffffff;
+  padding: 28px;
+  border: 1px solid #e5e0da;
+  border-top: 3px solid #8b3a3a;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+  transition: 0.3s ease;
+}
+
+.order-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+}
+
+.order-card h3 {
+  margin: 0 0 20px;
+  color: #8b3a3a;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+}
+
+.order-card p {
+  margin: 9px 0;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.order-card strong {
+  color: #333;
+}
+
+.order-card hr {
+  border: none;
+  border-top: 1px solid #e5e0da;
+  margin: 20px 0;
+}
+
+
+/* =========================================
+   MOBILE ADMIN DASHBOARD
+========================================= */
+
+@media (max-width: 900px) {
+
+  .admin-dashboard {
+    padding: 45px 20px 65px;
+  }
+
+  .admin-header h1 {
+    font-size: 30px;
+  }
+
+  .admin-product-section {
+    padding: 30px 25px;
+  }
+
+  .admin-products-container,
+  .orders-container {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .admin-dashboard {
+    padding: 35px 15px 55px;
+  }
+
+  .admin-header {
+    padding: 15px 10px 30px;
+    margin-bottom: 30px;
+  }
+
+  .admin-header h1 {
+    font-size: 25px;
+    letter-spacing: 2px;
+  }
+
+  .admin-header p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .admin-product-section {
+    padding: 25px 18px;
+    margin-bottom: 45px;
+  }
+
+  .admin-product-section h2,
+  .admin-product-list h2,
+  .admin-orders > h2 {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  .product-form {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .form-buttons {
+    grid-column: auto;
+    flex-direction: column;
+  }
+
+  .admin-add-btn,
+  .admin-cancel-btn {
+    width: 100%;
+  }
+
+  .admin-product-card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 22px 18px;
+  }
+
+  .admin-product-actions {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .admin-edit-btn,
+  .admin-delete-btn {
+    flex: 1;
+  }
+
+  .order-card {
+    padding: 22px 18px;
+  }
+
+}
+
+
+/* =========================================
+   EXTRA SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+  .admin-header h1 {
+    font-size: 22px;
+  }
+
+  .admin-product-section {
+    padding: 22px 15px;
+  }
+
+  .admin-product-info h3 {
+    font-size: 16px;
+  }
+
+  .admin-product-info p {
+    font-size: 12px;
+  }
+
+}
